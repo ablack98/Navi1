@@ -23,7 +23,9 @@ export default function IntentPage() {
   };
 
   return (
-    <div style={{
+    <div 
+    className="intent-container"
+      style={{
       minHeight: '100vh',
       padding: '2rem',
       backgroundColor: '#F9F9F6',
