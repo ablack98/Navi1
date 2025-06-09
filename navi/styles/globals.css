@@ -1,3 +1,5 @@
+/* styles/globals.css */
+
 body {
   margin: 0;
   padding: 0;
@@ -5,11 +7,14 @@ body {
   background-color: #F9F9F6;
 }
 
-button:hover {
-  transform: scale(1.05);
-  transition: all 0.2s ease;
+.bubble {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
 
-textarea:focus {
-  outline: 2px solid #6BA292;
+.bubble:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
