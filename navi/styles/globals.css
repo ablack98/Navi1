@@ -56,3 +56,26 @@ body {
   background-color: rgba(255,255,255,0.8);
   backdrop-filter: blur(4px);
 }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #F9F9F6;
+  /* Use the pattern with a light opacity overlay */
+  background-image: url('/background-pattern.png');
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.chat-container,
+.intent-container,
+.tone-container,
+.journal-container,
+.affirmations-container {
+  /* Overlay a subtle white tint for readability */
+  background-color: rgba(255,255,255,0.8);
+  backdrop-filter: blur(4px);
+}
+
