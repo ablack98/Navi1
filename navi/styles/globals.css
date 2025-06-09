@@ -1,28 +1,30 @@
 /* styles/globals.css */
 
-body {
+/* Base page background */
+html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #F9F9F6;
+  background-image: url('/background-pattern.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
 }
 
+/* Ensure Next.js root spans full height */
+#__next {
+  min-height: 100%;
+}
+
+/* Global button hover */
 button:hover {
   transform: scale(1.05);
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
-textarea:focus {
-  outline: 2px solid #6BA292;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #F9F9F6;
-}
-
+/* Chat/message bubble base */
 .bubble {
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   border-radius: 1rem;
@@ -30,48 +32,18 @@ body {
   cursor: pointer;
 }
 
+/* Bubble hover */
 .bubble:hover {
   transform: scale(1.03);
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
-.chat-container,
-.intent-container,
-.tone-container,
-.journal-container,
-.affirmations-container {
-  /* Overlay a subtle white tint for readability */
-  background-color: rgba(255,255,255,0.8);
-  backdrop-filter: blur(4px);
-}
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #F9F9F6;
-  /* Use the pattern with a light opacity overlay */
-  background-image: url('/background-pattern.png');
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.chat-container,
-.intent-container,
-.tone-container,
-.journal-container,
-.affirmations-container {
-  /* Overlay a subtle white tint for readability */
-  background-color: rgba(255,255,255,0.8);
-  backdrop-filter: blur(4px);
-}
-
+/* Page overlay for readability */
 .page-overlay {
   /* white overlay to keep text readable */
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(4px);
-  /* ensure it sits above the body bg */
   position: relative;
   z-index: 1;
   min-height: 100%;
+}
