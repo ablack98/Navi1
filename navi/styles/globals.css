@@ -1,7 +1,8 @@
 /* styles/globals.css */
 
 /* 1. Base page background */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -26,7 +27,7 @@ button:hover {
 
 /* 4. Chat/message bubble base */
 .bubble {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border-radius: 1rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
@@ -35,7 +36,7 @@ button:hover {
 /* 5. Bubble hover */
 .bubble:hover {
   transform: scale(1.03);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 /* 6. Page overlay for readability */
