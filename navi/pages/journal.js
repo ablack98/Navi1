@@ -29,7 +29,9 @@ export default function Journal() {
   };
 
   return (
-    <div style={{ padding: '1rem', fontFamily: 'sans-serif', backgroundColor: '#F9F9F6', height: '100vh' }}>
+    <div
+    className="journal-container"
+      style={{ padding: '1rem', fontFamily: 'sans-serif', backgroundColor: '#F9F9F6', height: '100vh' }}>
       <h2 onClick={() => router.push('/')} style={{ cursor: 'pointer', color: '#6BA292' }}>← Back to Navi</h2>
       <h1 style={{ marginBottom: '1rem' }}>Your Journal</h1>
 
