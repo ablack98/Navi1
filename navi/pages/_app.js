@@ -1,48 +1,11 @@
-// File: /pages/_app.js
-import '../styles/globals.css';  // your existing globals
+// File: pages/_app.js
+
+import '../styles/globals.css';  // Make sure this import is at the very top
 
 export default function App({ Component, pageProps }) {
   return (
-    // Background wrapper
+    // Full‐screen background wrapper
     <div
       style={{
-        backgroundImage: 'url("/background-pattern.png")',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-        minHeight: '100vh',
-      }}
-    >
-      {/* Translucent overlay for readability */}
-      <div
-        style={{
-          backgroundColor: 'rgba(255,255,255,0.85)',
-          backdropFilter: 'blur(4px)',
-          minHeight: '100vh'
-        }}
-      >
-        <Component {...pageProps} />
-      </div>
-    </div>
-  );
-}
-
-// pages/_app.js
-import '../styles/globals.css';
-
-export default function App({ Component, pageProps }) {
-  return (
-    <div style={{
-      position: 'fixed',
-      width: '100%',
-      height: '100%',
-      top: 0,
-      left: 0
-    }}>
-      <div className="page-overlay">
-        <Component {...pageProps} />
-      </div>
-    </div>
-  );
-}
-
+        position: 'fixed',
+        width
