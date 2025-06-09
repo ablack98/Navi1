@@ -54,7 +54,9 @@ export default function Chat() {
   };
 
   return (
-    <div style={{
+    <div
+    className="chat-container"
+      style={{
       display: 'flex',
       flexDirection: 'column',
       height: '100vh',
