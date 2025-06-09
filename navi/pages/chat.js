@@ -55,7 +55,7 @@ export default function Chat() {
 
   return (
     <div
-    className="chat-container"
+      className="page-overlay"
       style={{
       display: 'flex',
       flexDirection: 'column',
