@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #F9F9F6;
+}
+
+button:hover {
+  transform: scale(1.05);
+  transition: all 0.2s ease;
+}
+
+textarea:focus {
+  outline: 2px solid #6BA292;
+}
