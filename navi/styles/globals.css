@@ -34,18 +34,6 @@ body {
   transform: scale(1.03);
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #F9F9F6;
-  /* Use the pattern with a light opacity overlay */
-  background-image: url('/background-pattern.png');
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center;
-}
 
 .chat-container,
 .intent-container,
@@ -79,3 +67,11 @@ body {
   backdrop-filter: blur(4px);
 }
 
+.page-overlay {
+  /* white overlay to keep text readable */
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  /* ensure it sits above the body bg */
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
