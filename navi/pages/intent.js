@@ -9,13 +9,17 @@ export default function IntentPage() {
     'Finding Clarity',
     'Gratitude',
     'Emotional Support',
-    'Positive Focus',
-    'Goal Setting',
+    'Positive Focus'
   ];
 
   const handleSelect = (intent) => {
     localStorage.setItem('navi_intent', intent);
     router.push('/tone');
+  };
+
+  const handleCustom = () => {
+    const custom = prompt('Please enter your own support request:');
+    if (custom?.trim()) handleSelect(custom);
   };
 
   return (
@@ -55,26 +59,20 @@ export default function IntentPage() {
             {opt}
           </div>
         ))}
-      </div>
 
-      <textarea
-        placeholder="Or something else?"
-        onBlur={(e) => {
-          const v = e.target.value.trim();
-          if (v) handleSelect(v);
-        }}
-        style={{
-          marginTop: '2rem',
-          width: '100%',
-          maxWidth: '600px',
-          padding: '1rem',
-          borderRadius: '12px',
-          border: '1px solid #ccc',
-          fontSize: '1rem',
-          resize: 'none',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-        }}
-      />
+        <div
+          className="bubble"
+          onClick={handleCustom}
+          style={{
+            backgroundColor: '#E3EAE7',
+            color: '#333',
+            padding: '1rem',
+            textAlign: 'center'
+          }}
+        >
+          Something else?
+        </div>
+      </div>
     </div>
   );
 }
