@@ -1,6 +1,6 @@
 /* styles/globals.css */
 
-/* Base page background */
+/* 1. Base page background */
 html, body {
   margin: 0;
   padding: 0;
@@ -13,18 +13,18 @@ html, body {
   background-position: center;
 }
 
-/* Ensure Next.js root spans full height */
+/* 2. Ensure Next.js root spans full height */
 #__next {
   min-height: 100%;
 }
 
-/* Global button hover */
+/* 3. Global button hover */
 button:hover {
   transform: scale(1.05);
   transition: transform 0.2s ease;
 }
 
-/* Chat/message bubble base */
+/* 4. Chat/message bubble base */
 .bubble {
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   border-radius: 1rem;
@@ -32,15 +32,14 @@ button:hover {
   cursor: pointer;
 }
 
-/* Bubble hover */
+/* 5. Bubble hover */
 .bubble:hover {
   transform: scale(1.03);
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
-/* Page overlay for readability */
+/* 6. Page overlay for readability */
 .page-overlay {
-  /* white overlay to keep text readable */
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(4px);
   position: relative;
