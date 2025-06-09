@@ -36,7 +36,9 @@ export default function Affirmations() {
   };
 
   return (
-    <div style={{ padding: '1rem', fontFamily: 'sans-serif', backgroundColor: '#F9F9F6', height: '100vh' }}>
+    <div 
+    className="affirmations-container"
+      style={{ padding: '1rem', fontFamily: 'sans-serif', backgroundColor: '#F9F9F6', height: '100vh' }}>
       <h2 onClick={() => router.push('/')} style={{ cursor: 'pointer', color: '#6BA292' }}>← Back to Navi</h2>
       <h1 style={{ marginBottom: '1rem' }}>Daily Affirmation</h1>
 
