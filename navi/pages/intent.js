@@ -23,17 +23,22 @@ export default function IntentPage() {
       minHeight: '100vh',
       padding: '2rem',
       backgroundColor: '#F9F9F6',
-      fontFamily: 'sans-serif',
+      fontFamily: 'sans-serif'
     }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '1.5rem', color: '#333' }}>
+      <h1 style={{
+        textAlign: 'center',
+        marginBottom: '1.5rem',
+        color: '#333'
+      }}>
         What would you like support with today?
       </h1>
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
+        gridTemplateColumns: 'repeat(2, 1fr)',
         gap: '1rem',
-        justifyItems: 'center',
+        maxWidth: '600px',
+        margin: '0 auto'
       }}>
         {options.map((opt) => (
           <div
@@ -44,11 +49,7 @@ export default function IntentPage() {
               backgroundColor: '#6BA292',
               color: '#fff',
               padding: '1rem',
-              borderRadius: '999px',
-              cursor: 'pointer',
-              textAlign: 'center',
-              width: '100%',
-              maxWidth: '200px',
+              textAlign: 'center'
             }}
           >
             {opt}
@@ -58,16 +59,20 @@ export default function IntentPage() {
 
       <textarea
         placeholder="Or something else?"
-        onBlur={(e) => e.target.value.trim() && handleSelect(e.target.value)}
+        onBlur={(e) => {
+          const v = e.target.value.trim();
+          if (v) handleSelect(v);
+        }}
         style={{
           marginTop: '2rem',
           width: '100%',
+          maxWidth: '600px',
           padding: '1rem',
           borderRadius: '12px',
           border: '1px solid #ccc',
           fontSize: '1rem',
           resize: 'none',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
         }}
       />
     </div>
