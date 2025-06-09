@@ -10,7 +10,7 @@ export default function TonePage() {
     'Warm & Friendly',
     'Positive & Playful',
     'Direct & Insightful',
-    'Life Coach Mode',
+    'Life Coach Mode'
   ];
 
   const handleSelect = (tone) => {
@@ -23,35 +23,36 @@ export default function TonePage() {
       minHeight: '100vh',
       padding: '2rem',
       backgroundColor: '#F9F9F6',
-      fontFamily: 'sans-serif',
+      fontFamily: 'sans-serif'
     }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '1.5rem', color: '#333' }}>
+      <h1 style={{
+        textAlign: 'center',
+        marginBottom: '1.5rem',
+        color: '#333'
+      }}>
         How would you like Navi to speak with you?
       </h1>
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
+        gridTemplateColumns: 'repeat(2, 1fr)',
         gap: '1rem',
-        justifyItems: 'center',
+        maxWidth: '600px',
+        margin: '0 auto'
       }}>
-        {tones.map((tone) => (
+        {tones.map((t) => (
           <div
-            key={tone}
+            key={t}
             className="bubble"
-            onClick={() => handleSelect(tone)}
+            onClick={() => handleSelect(t)}
             style={{
               backgroundColor: '#E3EAE7',
               color: '#333',
               padding: '1rem',
-              borderRadius: '999px',
-              cursor: 'pointer',
-              textAlign: 'center',
-              width: '100%',
-              maxWidth: '200px',
+              textAlign: 'center'
             }}
           >
-            {tone}
+            {t}
           </div>
         ))}
       </div>
