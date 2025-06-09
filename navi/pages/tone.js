@@ -19,7 +19,9 @@ export default function TonePage() {
   };
 
   return (
-    <div style={{
+    <div
+    className="tone-container"
+      style={{
       minHeight: '100vh',
       padding: '2rem',
       backgroundColor: '#F9F9F6',
