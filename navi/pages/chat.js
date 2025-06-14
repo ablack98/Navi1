@@ -20,36 +20,38 @@ export default function Chat() {
     const savedTone = localStorage.getItem('navi_tone') || 'calm';
     const savedIntent = localStorage.getItem('navi_intent') || '';
     const savedName = localStorage.getItem('navi_user_name') || '';
+
     setMessages(savedLogs);
     setTone(savedTone);
     setIntent(savedIntent);
     setUserName(savedName);
   }, []);
 
-  // Inject initial greeting once
+  // Automatically inject the first greeting if we haven't yet
   useEffect(() => {
     if (!greeted) {
-      if (messages.length > 0) {
-        // Returning user
-        const greeting = userName
-          ? `Welcome back, ${userName}! Would you like to continue where you left off or start a new chat?`
-          : `Welcome back! Would you like to continue where you left off or start a new chat?`;
-        setMessages(msgs => [...msgs, { role: 'assistant', content: greeting }]);
+      let greeting;
+      if (messages.length === 0) {
+        // New chat
+        greeting = userName
+          ? `Hi ${userName}! I’m Navi. Let’s talk about "${intent}" in a ${tone} tone. How can I help you today?`
+          : `Hi there! I’m Navi, your ${tone} support coach for "${intent}". What should I call you?`;
       } else {
-        // New user
-        const greeting = userName
-          ? `Hi ${userName}! I’m Navi, here to support you with "${intent}" in a ${tone} tone. How can I assist today?`
-          : `Hi! I’m Navi, here to support you with "${intent}" in a ${tone} tone. What should I call you?`;
-        setMessages([{ role: 'assistant', content: greeting }]);
+        // Returning
+        greeting = userName
+          ? `Welcome back, ${userName}! Continue where we left off or type “new chat” to start fresh.`
+          : `Welcome back! Continue where we left off or type “new chat” to start fresh.`;
       }
+
+      setMessages((prev) => [...prev, { role: 'assistant', content: greeting }]);
       setGreeted(true);
     }
-  }, [greeted, messages.length, userName, tone, intent]);
+  }, [greeted, messages, tone, intent, userName]);
 
   // Persist logs & scroll
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     localStorage.setItem('navi_chat_logs', JSON.stringify(messages));
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   const sendMessage = async () => {
@@ -57,19 +59,19 @@ export default function Chat() {
     if (!text) return;
     setInput('');
 
-    // Returning user “new chat” interceptor
-    if (messages.length > 1 && text.toLowerCase().includes('new chat')) {
+    // Check for “new chat” command
+    if (text.toLowerCase().includes('new chat')) {
       localStorage.removeItem('navi_chat_logs');
       setMessages([]);
       setGreeted(false);
       return;
     }
 
-    // New user name interceptor
+    // If we just asked for the user’s name
     if (!userName) {
       localStorage.setItem('navi_user_name', text);
       setUserName(text);
-      setMessages(prev => [
+      setMessages((prev) => [
         ...prev,
         { role: 'user', content: text },
         { role: 'assistant', content: `Nice to meet you, ${text}! How can I assist you today?` }
@@ -77,27 +79,27 @@ export default function Chat() {
       return;
     }
 
-    // Standard chat flow
-    const userMessage = { role: 'user', content: text };
-    setMessages(prev => [...prev, userMessage]);
+    // Normal chat flow
+    const userMsg = { role: 'user', content: text };
+    setMessages((prev) => [...prev, userMsg]);
     setIsTyping(true);
 
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [...messages, userMessage], tone })
+        body: JSON.stringify({ messages: [...messages, userMsg], tone })
       });
-      const data = await res.json();
-      setMessages(prev => [...prev, { role: 'assistant', content: data.result.content }]);
+      const { result } = await res.json();
+      setMessages((prev) => [...prev, { role: 'assistant', content: result.content }]);
     } catch {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, something went wrong.' }]);
+      setMessages((prev) => [...prev, { role: 'assistant', content: 'Sorry, something went wrong.' }]);
     } finally {
       setIsTyping(false);
     }
   };
 
-  const handleKeyPress = e => {
+  const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
@@ -110,20 +112,14 @@ export default function Chat() {
       background: 'linear-gradient(to bottom right, #f9f9f6, #e6f0ea)',
       position: 'relative', fontFamily: 'sans-serif'
     }}>
-      <header
-        onClick={() => router.push('/')}
-        className="bubble"
-        style={{
-          backgroundColor: '#6BA292', color: '#fff', textAlign: 'center',
-          padding: '1rem', fontWeight: 'bold', fontSize: '1.5rem',
-          position: 'sticky', top: 0, cursor: 'pointer'
-        }}
-      >Navi</header>
+      <header onClick={() => router.push('/')} className="bubble" style={{
+        backgroundColor: '#6BA292', color: '#fff', textAlign: 'center',
+        padding: '1rem', fontWeight: 'bold', fontSize: '1.5rem',
+        position: 'sticky', top: 0, cursor: 'pointer'
+      }}>Navi</header>
 
       <div style={{ position: 'absolute', top: 16, left: 16 }}>
-        <button className="bubble" onClick={sendMessage} style={{ background: '#E3EAE7' }}>
-          🔄 New Chat
-        </button>
+        <button onClick={sendMessage} className="bubble" style={{ background: '#E3EAE7' }}>🔄 New Chat</button>
       </div>
 
       <div style={{ position: 'absolute', top: 16, right: 16, display: 'flex', gap: '10px' }}>
@@ -132,16 +128,10 @@ export default function Chat() {
       </div>
 
       <div style={{
-        margin: '1rem auto', padding: '0.75rem 1.25rem', backgroundColor: '#fff8eb',
-        borderRadius: '12px', boxShadow: '0 1px 4px rgba(0,0,0,0.05)', textAlign: 'center',
-        maxWidth: '80%', fontStyle: 'italic', color: '#444'
+        flexGrow: 1, overflowY: 'auto', padding: '1rem'
       }}>
-        {/* You can optionally fetch a GPT-generated affirmation here */}
-      </div>
-
-      <div style={{ flexGrow: 1, overflowY: 'auto', padding: '1rem' }}>
-        {messages.map((msg, i) => (
-          <div key={i} style={{
+        {messages.map((msg, idx) => (
+          <div key={idx} style={{
             maxWidth: '70%', marginBottom: '1rem', padding: '0.75rem 1rem',
             borderRadius: '1rem', backgroundColor: msg.role === 'user' ? '#D0EAE1' : '#ffffff',
             alignSelf: msg.role === 'user' ? 'flex-start' : 'flex-end',
@@ -157,20 +147,16 @@ export default function Chat() {
       <div style={{ padding: '1rem', borderTop: '1px solid #ddd', backgroundColor: '#fff' }}>
         <textarea
           value={input}
-          onChange={e => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyPress}
           rows={2}
           placeholder="Type your thoughts..."
-          style={{
-            width: '100%', borderRadius: 8, padding: 10,
-            border: '1px solid #ccc', resize: 'none', fontSize: '1rem'
-          }}
+          style={{ width: '100%', borderRadius: 8, padding: 10, border: '1px solid #ccc', resize: 'none', fontSize: '1rem' }}
         />
-        <button
-          onClick={sendMessage}
-          className="bubble"
-          style={{ marginTop: 8, backgroundColor: '#6BA292', color: '#fff', padding: '0.6rem 1.2rem', border: 'none', borderRadius: 6, fontWeight: 'bold' }}
-        >Send</button>
+        <button onClick={sendMessage} className="bubble" style={{
+          marginTop: 8, backgroundColor: '#6BA292', color: '#fff',
+          padding: '0.6rem 1.2rem', border: 'none', borderRadius: 6, fontWeight: 'bold'
+        }}>Send</button>
       </div>
     </div>
   );
